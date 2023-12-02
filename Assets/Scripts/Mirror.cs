@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mirror : MonoBehaviour
 {
     RenderTexture targetTexture;
+    public Camera cam;
 
     private void Awake()
     {
@@ -14,6 +15,6 @@ public class Mirror : MonoBehaviour
     private void Start()
     {
         this.GetComponent<Renderer>().material.mainTexture = targetTexture;
-        this.transform.GetChild(0).GetComponent<Camera>().targetTexture = targetTexture;
+        cam.targetTexture = targetTexture;
     }
 }
