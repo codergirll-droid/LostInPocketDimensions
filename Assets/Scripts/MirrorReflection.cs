@@ -15,7 +15,8 @@ public class MirrorReflection : MonoBehaviour
 
     }
 
-    
+
+
     private void Update()
     {
         ResetLightRay();
@@ -41,6 +42,11 @@ public class MirrorReflection : MonoBehaviour
                 Debug.Log("hit to " + hit.transform.gameObject.name);
 
                 LightRay(hit.transform.position, reflectedDirection.normalized);
+
+            }
+            else
+            {
+                points.Add(hit.transform.position);
 
             }
 
