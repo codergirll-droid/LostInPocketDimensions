@@ -6,17 +6,37 @@ public class RotatableMirror : MonoBehaviour, IInteractable
 {
     [SerializeField] float rotationSpeed = 30f;
 
-    public void Interact()
+    float right, left, up, down;
+
+    public void Interact(float up, float right)
     {
-        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
-        Debug.Log("Interacting with " + gameObject.name);
+        if(up > 0)
+        {
+            transform.Rotate(Vector3.down, rotationSpeed * Time.deltaTime);
+        }
+        else if (up < 0)
+        {
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+        }
+
+        if (right > 0)
+        {
+            transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
+        }
+        else if (right < 0)
+        {
+            transform.Rotate(Vector3.left, rotationSpeed * Time.deltaTime);
+        }
+
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKey(KeyCode.I))
-        {
-            Interact();
-        }
+        right = (Input.GetKey(KeyCode.RightArrow)) ? 1 : 0;
+        left = (Input.GetKey(KeyCode.LeftArrow)) ? -1 : 0;
+        up = (Input.GetKey(KeyCode.UpArrow)) ? 1 : 0;
+        down = (Input.GetKey(KeyCode.DownArrow)) ? -1 : 0;
+
+        Interact(right + left, up + down);
     }
 }

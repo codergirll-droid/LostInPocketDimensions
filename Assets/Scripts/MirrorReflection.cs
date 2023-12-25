@@ -5,6 +5,7 @@ public class MirrorReflection : MonoBehaviour
 {
     LineRenderer lineRenderer;
     public List<Vector3> points;
+    public LayerMask mirrorLayermask;
 
     [System.Obsolete]
     void Start()
@@ -31,22 +32,22 @@ public class MirrorReflection : MonoBehaviour
         Ray ray = new Ray(position, direction);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 100, mirrorLayermask))
         {
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Mirror"))
             {
                 Vector3 reflectedDirection = ReflectVector(ray.direction, hit.normal);
                 
-                points.Add(hit.transform.position);
+                points.Add(hit.point);
 
-                Debug.Log("hit to " + hit.transform.gameObject.name);
+                //Debug.Log("hit to " + hit.transform.gameObject.name);
 
-                LightRay(hit.transform.position, reflectedDirection.normalized);
+                LightRay(hit.point, reflectedDirection.normalized);
 
             }
             else
             {
-                points.Add(hit.transform.position);
+                points.Add(hit.point);
 
             }
 
@@ -63,7 +64,6 @@ public class MirrorReflection : MonoBehaviour
 
         }
 
-        Debug.Log("drawingRay");
         DrawReflectedRay();
     }
 
