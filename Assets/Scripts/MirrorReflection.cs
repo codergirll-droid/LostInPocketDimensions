@@ -7,12 +7,30 @@ public class MirrorReflection : MonoBehaviour
     public List<Vector3> points;
     public LayerMask mirrorLayermask;
 
+
+    public enum LightColor { red, yellow, blue }
+
+    public LightColor lightColor;
+
+    public GameObject winPanel;
+
     [System.Obsolete]
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         points = new List<Vector3>();
 
+        if(lightColor == LightColor.red)
+        {
+            lineRenderer.SetColors(Color.red, Color.red);
+        }else if(lightColor == LightColor.yellow)
+        {
+            lineRenderer.SetColors(Color.yellow, Color.yellow);
+        }
+        else if (lightColor == LightColor.blue)
+        {
+            lineRenderer.SetColors(Color.blue, Color.blue);
+        }
 
     }
 
@@ -44,6 +62,35 @@ public class MirrorReflection : MonoBehaviour
 
                 LightRay(hit.point, reflectedDirection.normalized);
 
+            }
+            else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Key"))
+            {
+                Key key = hit.transform.gameObject.GetComponent<Key>();
+
+                if (key.keyType == Key.KeyType.red && lightColor == LightColor.red)
+                {
+                    Debug.Log("unlocked the door");
+                    winPanel.SetActive(true);
+                    Time.timeScale = 0;
+                }
+                else if (key.keyType == Key.KeyType.yellow && lightColor == LightColor.yellow)
+                {
+                    Debug.Log("unlocked the door");
+                    winPanel.SetActive(true);
+                    Time.timeScale = 0;
+                }
+                else if (key.keyType == Key.KeyType.blue && lightColor == LightColor.blue)
+                {
+                    Debug.Log("unlocked the door");
+                    winPanel.SetActive(true);
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    Debug.Log("The light is not compatible with the key");
+                }
+
+                points.Add(hit.point);
             }
             else
             {

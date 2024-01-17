@@ -12,20 +12,20 @@ public class RotatableMirror : MonoBehaviour, IInteractable
     {
         if(up > 0)
         {
-            transform.Rotate(-transform.up, rotationSpeed * Time.deltaTime);
+            transform.Rotate(-Vector3.up, rotationSpeed * Time.deltaTime);
         }
         else if (up < 0)
         {
-            transform.Rotate(transform.up, rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
         }
 
         if (right > 0)
         {
-            transform.Rotate(transform.right, rotationSpeed * Time.deltaTime);
+            transform.Rotate(-Vector3.right, rotationSpeed * Time.deltaTime);
         }
         else if (right < 0)
         {
-            transform.Rotate(-transform.right, rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
         }
 
     }

@@ -7,6 +7,7 @@ public class Mirror : MonoBehaviour
     RenderTexture targetTexture;
     public Camera cam;
 
+
     private void Awake()
     {
         targetTexture = new RenderTexture(256, 256, 24);
